@@ -1,6 +1,6 @@
 {
   "name": "@xenorange/esbuild-plugin-load-from-expression",
-  "version": "1.0.0",
+  "version": "1.0.1-SNAPSHOT",
   "description": "esbuild plugin for loading modules from an expression, such as import(\"jquery\") from window.$. Also support internal imports when a file from a module imports another file from itself.",
   "type": "module",
   "main": "index.js",
