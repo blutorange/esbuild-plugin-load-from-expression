@@ -18,6 +18,7 @@ await build({
 	outdir: "./dist/",
 	absWorkingDir: dirname,
 	bundle: true,
+	legalComments: "none",
 	loader: {
 		".png": "base64",
 		".svg": "base64",
@@ -92,7 +93,7 @@ for (let i = 0; i < expectedFiles.length; i += 1) {
 
 	if (normalizedDistFileContent !== normalizedExpectedFileContent) {
 		throw new Error(
-			`Expected file ${file} to have content: \n\n${expectedFileContent}\n\nBut was:\n\n${distFileContent}`,
+			`Expected file ${file} to have content: \n\n${normalizedExpectedFileContent}\n\nBut was:\n\n${normalizedDistFileContent}`,
 		);
 	}
 }
@@ -106,7 +107,12 @@ console.log("IT tests successful");
  */
 function normalizeContent(file, content) {
 	if (file.endsWith(".js")) {
-		return content.split(/\r\n|\n/).map(x => x.trim()).filter(line => line.length > 0).filter(line => !line.startsWith("//")).join("");
+		return content.split(/\r\n|\n/)
+			.map(line => line.trim())
+			.map(line => line.replace(/(\.\.[\\\/])+/g, "../"))
+			.filter(line => line.length > 0)
+			.filter(line => !line.startsWith("//"))
+			.join("\n");
 	}
 	if (file.endsWith(".css")) {
 		return content.replace(/[\r\n\s]+/g, "");

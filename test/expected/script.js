@@ -134,12 +134,3 @@
   console.log(import_moment.default.locales());
   console.log(import_jquery.default.map([1, 2, 3], (x) => x ** 2));
 })();
-/*! Bundled license information:
-
-moment/locale/de.js:
-  (*! moment.js locale configuration *)
-  (*! locale : German [de] *)
-  (*! author : lluchs : https://github.com/lluchs *)
-  (*! author: Menelion Elensúle: https://github.com/Oire *)
-  (*! author : Mikolaj Dadela : https://github.com/mik01aj *)
-*/
