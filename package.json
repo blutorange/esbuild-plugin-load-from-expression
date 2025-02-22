@@ -1,0 +1,53 @@
+{
+  "name": "@xenorange/esbuild-plugin-load-from-expression",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "esbuild plugin for loading modules from an expression, such as import(\"jquery\") from window.$. Also support internal imports when a file from a module imports another file from itself.",
+  "type": "module",
+  "main": "index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p jsconfig.json",
+    "test": "node test/test.js",
+    "prepack": "run build",
+    "prepublish": "run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blutorange/esbuild-plugin-load-from-expression.git"
+  },
+  "keywords": [
+    "esbuild",
+    "plugin",
+    "external",
+    "loader"
+  ],
+  "author": "Andre Wachsmuth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blutorange/esbuild-plugin-load-from-expression/issues"
+  },
+  "homepage": "https://github.com/blutorange/esbuild-plugin-load-from-expression#readme",
+  "files": [
+    "index.js",
+    "dist/index.d.ts"
+  ],
+  "devDependencies": {
+    "@types/jquery": "3.5.32",
+    "@types/node": "^22.13.4",
+    "@types/pnpapi": "^0.0.5",
+    "esbuild": "0.25.0",
+    "jquery": "3.7.1",
+    "moment": "^2.30.1",
+    "typescript": "5.7.3"
+  },
+  "peerDependencies": {
+    "esbuild": "0.x.x"
+  },
+  "packageManager": "yarn@4.6.0"
+}
