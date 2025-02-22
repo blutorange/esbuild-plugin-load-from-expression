@@ -161,8 +161,10 @@ function resolveToPackagePath(resolved) {
  *     ],
  * });
  * ```
- * @param {LoadFromExpressionPluginOptions} options
- * @returns {import("esbuild").Plugin}
+ * @param {LoadFromExpressionPluginOptions} options Options that define which
+ * modules and files from modules to load from expressions.
+ * @returns {import("esbuild").Plugin} An new esbuild plugin that loads the
+ * specified modules from the given expressions.
  */
 export function loadFromExpressionPlugin(options) {
 	return {
