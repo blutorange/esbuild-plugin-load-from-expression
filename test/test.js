@@ -87,11 +87,8 @@ for (let i = 0; i < expectedFiles.length; i += 1) {
 		{ encoding: isText ? "utf8" : "base64" },
 	);
 
-	const normalizedDistFileContent = distFileContent.replace(/[\n\r\s]+/g, "");
-	const normalizedExpectedFileContent = expectedFileContent.replace(
-		/[\n\r\s]+/g,
-		"",
-	);
+	const normalizedDistFileContent = normalizeContent(file, distFileContent);
+	const normalizedExpectedFileContent = normalizeContent(file, expectedFileContent);
 
 	if (normalizedDistFileContent !== normalizedExpectedFileContent) {
 		throw new Error(
@@ -101,3 +98,18 @@ for (let i = 0; i < expectedFiles.length; i += 1) {
 }
 
 console.log("IT tests successful");
+
+
+/**
+ * @param {string} file 
+ * @param {string} content 
+ */
+function normalizeContent(file, content) {
+	if (file.endsWith(".js")) {
+		return content.split(/\r\n|\n/).map(x => x.trim()).filter(line => line.length > 0).filter(line => !line.startsWith("//")).join("");
+	}
+	if (file.endsWith(".css")) {
+		return content.replace(/[\r\n\s]+/g, "");
+	}
+	return content;
+}
