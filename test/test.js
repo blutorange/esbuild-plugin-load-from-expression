@@ -37,6 +37,31 @@ await build({
 	],
 });
 
+await build({
+	entryPoints: ["src/vis.js"],
+	outdir: "./dist/",
+	absWorkingDir: dirname,
+	bundle: true,
+	legalComments: "none",
+	loader: {
+		".png": "base64",
+		".svg": "base64",
+	},
+	plugins: [
+		loadFromExpressionPlugin({
+			conditions: ["import"],
+			expressions: {
+				importSpecifier: {
+					jquery: "window.jQuery",
+				},
+				modulePath: {
+					"moment/moment.js": "window.moment",
+				},
+			},
+		}),
+	],
+});
+
 // Assert generated build output matches our expectations
 
 const distDirFiles = await fs.readdir(path.join(dirname, "dist"), {

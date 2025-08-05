@@ -5,6 +5,8 @@ import pnpApi from "pnpapi";
  * @typedef {Object} LoadFromExpressionPluginOptions
  * @property {LoadFromExpressionPluginExpressions} expressions Define imports
  * and expression from where to load these imports.
+ * @property {string[]} [conditions] The import conditions to use when resolving
+ * packages. Defaults to `["node", "require"]`.
  */
 undefined;
 
@@ -68,12 +70,14 @@ function defaultIfEmpty(value, defaultValue) {
  * Resolves a request to a path using the PnP API, relative against an importer.
  * @param {string} request The requested path.
  * @param {string} importer The path of the module that imports the requested path.
+ * @param {string[]} conditions The conditions to use when resolving the request.
  * @returns {string} The resolved path.
  */
-function resolveRequest(request, importer) {
+function resolveRequest(request, importer, conditions) {
 	let error;
+	const options = {conditions: new Set(conditions)};
 	try {
-		const resolved = pnpApi.resolveRequest(request, importer);
+		const resolved = pnpApi.resolveRequest(request, importer, options);
 		if (resolved !== null) {
 			return resolved;
 		}
@@ -87,6 +91,7 @@ function resolveRequest(request, importer) {
 			const resolved = pnpApi.resolveRequest(
 				`${request.substring(0, request.length - 3)}.ts`,
 				importer,
+				options
 			);
 			if (resolved !== null) {
 				return resolved;
@@ -101,7 +106,8 @@ function resolveRequest(request, importer) {
 		try {
 			const resolved = pnpApi.resolveRequest(
 				`${request.substring(0, request.length - 4)}.tsx`,
-				importer,
+				importer, 
+				options
 			);
 			if (resolved !== null) {
 				return resolved;
@@ -195,7 +201,9 @@ export function loadFromExpressionPlugin(options) {
 			const modulePath = options.expressions.modulePath ?? {};
 			if (Object.keys(modulePath).length > 0) {
 				build.onResolve({ filter: /.*/ }, (args) => {
-					const resolved = resolveRequest(args.path, defaultIfEmpty(args.importer, cwd));
+					const conditions = options.conditions ?? ["node", "require"];
+					const importer = defaultIfEmpty(args.importer, cwd);
+					const resolved = resolveRequest(args.path, importer, conditions);
 					const packagePath = resolveToPackagePath(resolved);
 					if (packagePath in modulePath) {
 						return { path: packagePath, namespace: NamespaceModulePath };

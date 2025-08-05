@@ -1,0 +1,13 @@
+diff --git a/index.d.ts b/index.d.ts
+index a8c8717e566876b7a2cbac29a9f31c00a8b272c6..04c64cabc3f6227dae0c78d83f9c96be08ff2e52 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -33,7 +33,7 @@ export function resolveUnqualified(unqualified: string, opts?: { extensions?: st
+ export function resolveRequest(
+     request: string,
+     issuer: string | null,
+-    opts?: { considerBuiltins?: boolean | undefined; extensions?: string[] | undefined },
++    opts?: { considerBuiltins?: boolean | undefined; extensions?: string[] | undefined, conditions?: Set<string> },
+ ): string | null;
+ 
+ export function setup(): void;

@@ -1,6 +1,6 @@
 {
   "name": "@xenorange/esbuild-plugin-load-from-expression",
-  "version": "1.0.1-SNAPSHOT",
+  "version": "1.1.0",
   "description": "esbuild plugin for loading modules from an expression, such as import(\"jquery\") from window.$. Also support internal imports when a file from a module imports another file from itself.",
   "type": "module",
   "main": "index.js",
@@ -38,13 +38,22 @@
     "dist/index.d.ts"
   ],
   "devDependencies": {
+    "@egjs/hammerjs": "2.0.17",
     "@types/jquery": "3.5.32",
-    "@types/node": "^22.13.4",
-    "@types/pnpapi": "^0.0.5",
+    "@types/node": "22.13.4",
+    "@types/pnpapi": "patch:@types/pnpapi@npm%3A0.0.5#~/.yarn/patches/@types-pnpapi-npm-0.0.5-fe3fdb0700.patch",
+    "component-emitter": "2.0.0",
     "esbuild": "0.25.0",
     "jquery": "3.7.1",
-    "moment": "^2.30.1",
-    "typescript": "5.7.3"
+    "keycharm": "0.4.0",
+    "moment": "2.30.1",
+    "propagating-hammerjs": "3.0.0",
+    "typescript": "5.7.3",
+    "uuid": "11.1.0",
+    "vis-data": "8.0.1",
+    "vis-timeline": "8.2.1",
+    "vis-util": "6.0.0",
+    "xss": "1.0.15"
   },
   "peerDependencies": {
     "esbuild": "0.x.x"

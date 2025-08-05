@@ -78,6 +78,9 @@ await esbuild.build({
           "moment/moment.js": "window.moment",
         },
       },
+      // Conditions to apply when resolving imports from packages with an "exports"
+      // field in their "package.json". Defaults to ["node", "require"]. 
+      conditions: ["import"],
     }),
   ],
 });
@@ -86,6 +89,9 @@ await esbuild.build({
 Options are as follows. Relative paths are resolved against the
 [esbuild working directory](https://esbuild.github.io/api/#working-directory).
 
+* `conditions` - (optional) Conditions to apply when resolving imports from
+  packages with an `exports` field in their `package.json`. Defaults to
+  `["node", "require"]`.
 * `expressions` - Either bare import specifiers or a paths within a module to
 replace with an expression.
   * `expressions.importSpecified` - Target an import specifier, such as
